@@ -20,8 +20,8 @@ public class Exercicio03
 
 		System.out.println("\n");
 		for (int i = 0; i < repeticoes; i++){
-			a= b;
-			b= soma;
+			a = b;
+			b = soma;
 			soma = a+b;
 
 			views[i] = soma;
