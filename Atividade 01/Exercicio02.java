@@ -37,7 +37,7 @@ public class Exercicio02
 		for(int i =0; i < notas.length; i++){
 			byte nota = notas[i];
 			int quantidadeNotas = quantidadeNotasTotal[i];
-			System.out.println("R$: " + nota + ",00: " + quantidadeNotas);
+			System.out.println( quantidadeNotas + " de R$: " + nota + ",00");
 		}
 	}
 }
