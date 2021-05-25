@@ -39,5 +39,7 @@ public class Exercicio02
 			int quantidadeNotas = quantidadeNotasTotal[i];
 			System.out.println( quantidadeNotas + " de R$: " + nota + ",00");
 		}
+
+		scanner.close();
 	}
 }

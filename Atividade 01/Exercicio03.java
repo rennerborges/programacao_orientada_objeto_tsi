@@ -41,5 +41,7 @@ public class Exercicio03
 		}
 
 		System.out.println("O resultado é " + soma);
+
+		scanner.close();
 	}
 }

@@ -43,5 +43,6 @@ public class Exercicio05
 		System.out.println("Soma: " + soma);
 		System.out.println("Média: " + media);
 
+		scanner.close();
 	}
 }

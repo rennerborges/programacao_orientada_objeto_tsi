@@ -32,6 +32,7 @@ public class Exercicio04
 		}
 
 		System.out.println("\n");
+		scanner.close();
 
 	}
 }

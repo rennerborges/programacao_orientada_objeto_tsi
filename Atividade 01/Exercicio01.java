@@ -16,11 +16,12 @@ public class Exercicio01
 
 		System.out.println("O resultado foi " + calculo);
 
-		if(calculo <= 0.5){
+		if(calculo <= 0.7){
 			System.out.println("Abasteça com etanol");
 		}else{
 			System.out.println("Abasteça com gasolina");
 		}
 
+		scanner.close();
 	}
 }
