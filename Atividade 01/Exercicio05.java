@@ -10,8 +10,8 @@ public class Exercicio05
 		int quantidadeNumeros = 0;
 		float media = 0;
 		int soma = 0;
-		int maior = 0;
-		int menor = 0;
+		int maior;
+		int menor;
 
 		do {
 			System.out.println("Informe um número:");
@@ -24,6 +24,7 @@ public class Exercicio05
 				maior = valorInformado;
 				menor = valorInformado;
 			}
+
 			soma += valorInformado;
 			quantidadeNumeros++;
 
