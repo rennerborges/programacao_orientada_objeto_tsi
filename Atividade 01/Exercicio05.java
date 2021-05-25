@@ -19,6 +19,11 @@ public class Exercicio05
 			if(valorInformado == -1){
 				break;
 			}
+
+			if(quantidadeNumeros == 0){
+				maior = valorInformado;
+				menor = valorInformado;
+			}
 			soma += valorInformado;
 			quantidadeNumeros++;
 
@@ -26,7 +31,7 @@ public class Exercicio05
 				maior = valorInformado;
 			}
 
-			if(valorInformado < menor || menor == 0){
+			if(valorInformado < menor){
 				menor = valorInformado;
 			}
 
