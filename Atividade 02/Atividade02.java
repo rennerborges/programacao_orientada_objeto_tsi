@@ -56,6 +56,11 @@ class ContaCorrente {
 	}
 
 	void depositar(float valor){
+		if(valor < 0){
+			this.alert("Alerta","Não é possivel depositar valores menores que zero.");
+			this.historico.add("Deposito não efetuado no valo de R$ " + valor);
+			return;
+		}
 		this.saldo += valor;
 		this.alert("Sucesso","Deposito realizado com sucesso, seu saldo atual: R$ " + this.saldo);
 		this.historico.add("Deposito com sucesso no valor de R$ " + valor);
@@ -87,7 +92,7 @@ class ContaCorrente {
 
 	boolean isValidAction(float saldo, float valorTransacao){
 		float restante = saldo - valorTransacao;
-		return restante >= 0;
+		return restante >= 0 && valorTransacao > 0;
 	}
 
 	void alert(String titulo, String motivo){
