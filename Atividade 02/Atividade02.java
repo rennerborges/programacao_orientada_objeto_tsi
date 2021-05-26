@@ -70,6 +70,12 @@ class ContaCorrente {
 	}
 
 	boolean transferir(ContaCorrente conta,float valor){
+		if(valor <= 0){
+			this.alert("Alerta","Não foi é possivel transferir valores menores ou iguais a zero");
+			this.historico.add("Transferencia não efetuada para " + this.titular + " no valor de R$ " + valor);
+			return false;
+		}
+
 		if(conta.titular == this.titular){
 			this.alert("Alerta","Não é possivel transferir para você mesmo!");
 			this.historico.add("Transferencia não efetuada para " + conta.titular + " no valor de R$ " + valor);
@@ -77,6 +83,7 @@ class ContaCorrente {
 		}
 
 		if(this.isValidAction(this.saldo, valor)){
+
 			this.saldo -= valor;
 			conta.saldo += valor;
 			this.historico.add("Transferencia com sucesso para "+ conta.titular +" no valor de R$ " + valor);
