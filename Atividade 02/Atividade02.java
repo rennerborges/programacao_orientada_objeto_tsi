@@ -44,33 +44,36 @@ class ContaCorrente {
 	String banco;
 	ArrayList<String> historico = new ArrayList<String>();
 
-	void sacar(float valor){
+	boolean sacar(float valor){
 		if(this.isValidAction(this.saldo, valor)){
 			this.saldo -= valor;
 			this.alert("Sucesso","Saque realizado com sucesso, seu saldo atual R$ " + this.saldo);
 			this.historico.add("Saque com sucesso no valor de R$ " + valor);
+			return true;
 		}else{
 			this.alert("Alerta","Não foi possivel realizar o saque pois sua conta não possui o valor de R$ " + valor + ", seu saldo atual é de R$ " + this.saldo);
 			this.historico.add("Saque não efetuado no valor de R$ " + valor);
+			return false;
 		}
 	}
 
-	void depositar(float valor){
+	boolean depositar(float valor){
 		if(valor < 0){
 			this.alert("Alerta","Não é possivel depositar valores menores que zero.");
 			this.historico.add("Deposito não efetuado no valo de R$ " + valor);
-			return;
+			return false;
 		}
 		this.saldo += valor;
 		this.alert("Sucesso","Deposito realizado com sucesso, seu saldo atual: R$ " + this.saldo);
 		this.historico.add("Deposito com sucesso no valor de R$ " + valor);
+		return true;
 	}
 
-	void transferir(ContaCorrente conta,float valor){
+	boolean transferir(ContaCorrente conta,float valor){
 		if(conta.titular == this.titular){
 			this.alert("Alerta","Não é possivel transferir para você mesmo!");
 			this.historico.add("Transferencia não efetuada para " + conta.titular + " no valor de R$ " + valor);
-			return;
+			return false;
 		}
 
 		if(this.isValidAction(this.saldo, valor)){
@@ -80,9 +83,11 @@ class ContaCorrente {
 			conta.historico.add("Transferencia recebida de " + this.titular + " no valor de R$" + valor);
 
 			this.alert("Sucesso"," Transferencia com o valor de R$ " + valor + " realizada com sucesso,\n para a conta de número " + conta.numeroConta + " e agência " + conta.numeroAgencia + " com o titular " + conta.titular + " pertencente ao banco " + conta.banco + ".\n Seu saldo atual é de R$ " + this.saldo);
+			return true;
 		}else{
 			this.alert("Alerta","Não foi possivel realizar a transferencia pois sua conta não possui o valor de valor R$ " + valor + ", seu saldo atual é de R$ " + this.saldo);
 			this.historico.add("Transferencia não efetuada para " + this.titular + " no valor de R$ " + valor);
+			return false;
 		}
 	}
 
