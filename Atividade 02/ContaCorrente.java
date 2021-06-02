@@ -2,14 +2,23 @@ import java.util.ArrayList;
 
 public class ContaCorrente {
 
-	String titular;
-	int numeroConta;
-	int numeroAgencia;
+	private String titular;
+	private int numeroConta;
+	private int numeroAgencia;
 	private float saldo;
-	String banco;
-	ArrayList<String> historico = new ArrayList<String>();
+	private String banco;
+	public ArrayList<String> historico;
 
-	boolean sacar(float valor){
+    public ContaCorrente(String titular, int numeroConta, int numeroAgencia, String banco){
+        this.titular = titular;
+        this.numeroConta = numeroConta;
+        this.numeroAgencia = numeroAgencia;
+        this.banco = banco;
+        this.historico = new ArrayList<String>();
+        this.saldo = 0;
+    }
+
+	public boolean sacar(float valor){
 		if(this.isValidAction(this.saldo, valor)){
 			this.saldo -= valor;
 			this.alert("Sucesso","Saque realizado com sucesso, seu saldo atual R$ " + this.saldo);
@@ -22,7 +31,7 @@ public class ContaCorrente {
 		}
 	}
 
-	boolean depositar(float valor){
+	public boolean depositar(float valor){
 		if(valor < 0){
 			this.alert("Alerta","Não é possivel depositar valores menores que zero.");
 			this.historico.add("Deposito não efetuado no valo de R$ " + valor);
@@ -34,7 +43,7 @@ public class ContaCorrente {
 		return true;
 	}
 
-	boolean transferir(ContaCorrente conta,float valor){
+	public boolean transferir(ContaCorrente conta,float valor){
 
 		if(conta.titular == this.titular){
 			this.alert("Alerta","Não é possivel transferir para você mesmo!");
@@ -50,16 +59,16 @@ public class ContaCorrente {
 		return false;
 	}
 
-	void consultarSaldo(){
+	public void consultarSaldo(){
 		System.out.println("Saldo: R$" + this.saldo);
 	}
 
-	boolean isValidAction(float saldo, float valorTransacao){
+	private boolean isValidAction(float saldo, float valorTransacao){
 		float restante = saldo - valorTransacao;
 		return restante >= 0 && valorTransacao > 0;
 	}
 
-	void alert(String titulo, String motivo){
+	public void alert(String titulo, String motivo){
 		System.out.println("\n----------------"+ titulo +"---------------");
 		System.out.println(motivo);
 		System.out.println("------------------------------------\n");
