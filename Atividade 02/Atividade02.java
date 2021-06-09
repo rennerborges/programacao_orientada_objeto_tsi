@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,12 +9,16 @@ public class Atividade02 {
 		byte operacao;
 		Scanner scanner = new Scanner(System.in);
 
-		String titular;
 		int numeroConta;
 		int numeroAgencia;
 		String banco;
 		ContaCorrente conta;
 		float valor;
+		String nome;
+		String sobrenome;
+		BigInteger cpf;
+		int anoNascimento;
+		Pessoa Pessoa;
 		contasCorrentes = new ArrayList<ContaCorrente>();
 
 		do {
@@ -36,8 +41,17 @@ public class Atividade02 {
 					System.out.println("<<<<< Criar uma nova conta >>>>>");
 					System.out.println("\n");
 
-					System.out.println("Informe o titular:");
-					titular = scanner.next();
+					System.out.println("Informe seu nome:");
+					nome = scanner.next();
+
+					System.out.println("Informe seu sobrenome:");
+					sobrenome = scanner.next();
+
+					System.out.println("Informe seu CPF:");
+					cpf = scanner.nextBigInteger();
+
+					System.out.println("Informe seu ano de nascimento:");
+					anoNascimento = scanner.nextInt();
 
 					System.out.println("Informe o número da conta:");
 					numeroConta = scanner.nextInt();
@@ -48,11 +62,14 @@ public class Atividade02 {
 					System.out.println("Informe o banco:");
 					banco = scanner.next();
 
-					conta = new ContaCorrente(titular, numeroConta, numeroAgencia, banco);
+					Pessoa = new Pessoa(nome, sobrenome, cpf, anoNascimento);
+
+					conta = new ContaCorrente(Pessoa, numeroConta, numeroAgencia, banco);
 					contasCorrentes.add(conta);
 
 					System.out.println("\n");
 					conta.extrato();
+					System.out.println(conta.getLastTransacion());
 					break;
 				case 2:
 					System.out.println("<<<<< Exibir o saldo, ou extrato, de uma conta >>>>>");
@@ -65,6 +82,7 @@ public class Atividade02 {
 
 					if (conta != null) {
 						conta.extrato();
+						System.out.println(conta.getLastTransacion());
 					} else {
 						System.out.println("Não conseguimos localizar uma conta com esse número " + numeroConta);
 					}
@@ -83,6 +101,7 @@ public class Atividade02 {
 						System.out.println("Informe o valor do saque:");
 						valor = scanner.nextFloat();
 						conta.sacar(valor);
+						System.out.println(conta.getLastTransacion());
 					} else {
 						System.out.println("Não conseguimos localizar uma conta com esse número " + numeroConta);
 					}
@@ -100,6 +119,8 @@ public class Atividade02 {
 						System.out.println("Informe o valor do deposito:");
 						valor = scanner.nextFloat();
 						conta.depositar(valor);
+						System.out.println(conta.getLastTransacion());
+
 					} else {
 						System.out.println("Não conseguimos localizar uma conta com esse número " + numeroConta);
 					}
@@ -114,8 +135,7 @@ public class Atividade02 {
 					ContaCorrente contaOrigem = getContaByNumeroConta(numeroContaOrigem);
 
 					if (contaOrigem == null) {
-						System.out.println(
-								"Não conseguimos localizar a conta origem, com esse número " + numeroContaOrigem);
+						System.out.println("Não conseguimos localizar a conta origem, com esse número " + numeroContaOrigem);
 						break;
 					}
 
@@ -124,26 +144,16 @@ public class Atividade02 {
 					ContaCorrente contaDestino = getContaByNumeroConta(numeroContaDestino);
 
 					if (contaDestino == null) {
-						System.out.println(
-								"Não conseguimos localizar a conta destino, com esse número " + numeroContaDestino);
+						System.out.println("Não conseguimos localizar a conta destino, com esse número " + numeroContaDestino);
 						break;
 					}
 
 					System.out.println("Informe o valor do deposito:");
 					valor = scanner.nextFloat();
 
-					Boolean isTransactionValid = false;
+					contaOrigem.transferir(contaDestino, valor);
+					System.out.println(contaOrigem.getLastTransacion());
 
-					if (contaOrigem.sacar(valor)) {
-						isTransactionValid = contaDestino.depositar(valor);
-					}
-
-					if (isTransactionValid) {
-						System.out.println("Transferência efetuada com sucesso");
-					} else {
-						System.out.println("Transferência não efetuada");
-
-					}
 					break;
 				default:
 					break;

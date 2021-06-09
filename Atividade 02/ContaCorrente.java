@@ -2,20 +2,23 @@ import java.util.ArrayList;
 
 public class ContaCorrente {
 
-	private String titular;
+	private Pessoa Pessoa;
 	private int numeroConta;
 	private int numeroAgencia;
 	private float saldo;
 	private String banco;
-	public ArrayList<String> historico;
+	private ArrayList<String> historico;
 
-	public ContaCorrente(String titular, int numeroConta, int numeroAgencia, String banco) {
-		this.titular = titular;
+	public ContaCorrente(Pessoa pessoa, int numeroConta, int numeroAgencia, String banco) {
+		this.Pessoa = pessoa;
 		this.numeroConta = numeroConta;
 		this.numeroAgencia = numeroAgencia;
 		this.banco = banco;
 		this.historico = new ArrayList<String>();
 		this.saldo = 0;
+
+		this.historico.add("Conta criada com sucesso");
+
 	}
 
 	public int getNumeroConta() {
@@ -25,12 +28,9 @@ public class ContaCorrente {
 	public boolean sacar(float valor) {
 		if (this.isValidAction(this.saldo, valor)) {
 			this.saldo -= valor;
-			this.alert("Sucesso", "Saque realizado com sucesso, seu saldo atual R$ " + this.saldo);
 			this.historico.add("Saque com sucesso no valor de R$ " + valor);
 			return true;
 		} else {
-			this.alert("Alerta", "Não foi possivel realizar o saque pois sua conta não possui o valor de R$ " + valor
-					+ ", seu saldo atual é de R$ " + this.saldo);
 			this.historico.add("Saque não efetuado no valor de R$ " + valor);
 			return false;
 		}
@@ -38,45 +38,43 @@ public class ContaCorrente {
 
 	public boolean depositar(float valor) {
 		if (valor < 0) {
-			this.alert("Alerta", "Não é possivel depositar valores menores que zero.");
 			this.historico.add("Deposito não efetuado no valo de R$ " + valor);
 			return false;
 		}
 		this.saldo += valor;
-		this.alert("Sucesso", "Deposito recebido com sucesso, seu saldo atual: R$ " + this.saldo);
 		this.historico.add("Deposito recebido com sucesso no valor de R$ " + valor);
 		return true;
 	}
 
 	public boolean transferir(ContaCorrente conta, float valor) {
 
-		if (conta.titular == this.titular) {
-			this.alert("Alerta", "Não é possivel transferir para você mesmo!");
+		if (conta.numeroConta == this.numeroConta) {
 			this.historico.add("Transferencia não efetuada, não é possivel transferir para você mesmo.");
 			return false;
 		}
 
 		if (sacar(valor)) {
-			this.alert("Sucesso",
-					" Transferencia com o valor de R$ " + valor + " realizada com sucesso,\n para a conta de número "
-							+ conta.numeroConta + " e agência " + conta.numeroAgencia + " com o titular "
-							+ conta.titular + " pertencente ao banco " + conta.banco + ".\n Seu saldo atual é de R$ "
-							+ this.saldo);
-			return conta.depositar(valor);
+			if(conta.depositar(valor)){
+				this.historico.add("Transferência efetuada com sucesso");
+				return true;
+			}
 		}
 
+		this.historico.add("Transferência não efetuada");
 		return false;
 	}
 
 	public void extrato() {
 		System.out.println("<<<<< Extrato >>>>>");
 		System.out.println("\n");
-		System.out.println("Titular:" + this.titular);
-		System.out.println("Número conta:" + this.numeroConta);
+		System.out.println("Titular: " + this.Pessoa.getNomeCompleto());
+		System.out.println("Número conta: " + this.numeroConta);
 		System.out.println("Número agência: " + this.numeroAgencia);
 		System.out.println("Banco: " + this.banco);
 		System.out.println("Histórico: " + this.historico);
 		System.out.println("Saldo: R$ " + this.saldo);
+
+		this.historico.add("Extrato exibido com sucesso");
 	}
 
 	private boolean isValidAction(float saldo, float valorTransacao) {
@@ -84,9 +82,9 @@ public class ContaCorrente {
 		return restante >= 0 && valorTransacao > 0;
 	}
 
-	public void alert(String titulo, String motivo) {
-		System.out.println("\n----------------" + titulo + "---------------");
-		System.out.println(motivo);
-		System.out.println("------------------------------------\n");
+	public String getLastTransacion(){
+		int lastIndex = this.historico.size() -1;
+		return this.historico.get(lastIndex);
 	}
+
 }
