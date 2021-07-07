@@ -1,30 +1,21 @@
-import java.math.BigInteger;
-
-
-public class Pessoa {
+public abstract class Pessoa {
     private String nome;
     private String sobrenome;
-    private BigInteger cpf;
     private int anoNascimento;
     private String maternidade;
     private String paternidade;
 
-    public Pessoa(String nome, String sobrenome, BigInteger cpf, int anoNascimento){
+    public Pessoa(String nome, String sobrenome, int anoNascimento) {
         this.nome = nome;
         this.sobrenome = sobrenome;
-        this.cpf = cpf;
         this.anoNascimento = anoNascimento;
     }
 
-    public String getNomeCompleto(){
+    public String getNomeCompleto() {
         return this.nome + " " + this.sobrenome;
     }
 
-    public BigInteger getCpf(){
-        return this.cpf;
-    }
-
-    public int getAnoNascimento(){
+    public int getAnoNascimento() {
         return this.anoNascimento;
     }
 

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Atividade02 {
-	private static ArrayList<ContaCorrente> contasCorrentes;
+	private static ArrayList<ContaEspecial> contasCorrentes;
 
 	public static void main(String[] args) {
 		byte operacao;
@@ -12,14 +12,14 @@ public class Atividade02 {
 		int numeroConta;
 		int numeroAgencia;
 		String banco;
-		ContaCorrente conta;
+		ContaEspecial conta;
 		float valor;
 		String nome;
 		String sobrenome;
 		BigInteger cpf;
 		int anoNascimento;
-		Pessoa Pessoa;
-		contasCorrentes = new ArrayList<ContaCorrente>();
+		PessoaFisica Pessoa;
+		contasCorrentes = new ArrayList<ContaEspecial>();
 
 		do {
 			System.out.println("\n");
@@ -62,9 +62,9 @@ public class Atividade02 {
 					System.out.println("Informe o banco:");
 					banco = scanner.next();
 
-					Pessoa = new Pessoa(nome, sobrenome, cpf, anoNascimento);
+					Pessoa = new PessoaFisica(nome, sobrenome, cpf, anoNascimento);
 
-					conta = new ContaCorrente(Pessoa, numeroConta, numeroAgencia, banco);
+					conta = new ContaEspecial(Pessoa, numeroConta, numeroAgencia, banco, 100);
 					contasCorrentes.add(conta);
 
 					System.out.println("\n");
@@ -132,19 +132,21 @@ public class Atividade02 {
 					System.out.println("Informe o número da conta origem:");
 					int numeroContaOrigem = scanner.nextInt();
 
-					ContaCorrente contaOrigem = getContaByNumeroConta(numeroContaOrigem);
+					Conta contaOrigem = getContaByNumeroConta(numeroContaOrigem);
 
 					if (contaOrigem == null) {
-						System.out.println("Não conseguimos localizar a conta origem, com esse número " + numeroContaOrigem);
+						System.out.println(
+								"Não conseguimos localizar a conta origem, com esse número " + numeroContaOrigem);
 						break;
 					}
 
 					System.out.println("Informe o número da conta destino:");
 					int numeroContaDestino = scanner.nextInt();
-					ContaCorrente contaDestino = getContaByNumeroConta(numeroContaDestino);
+					Conta contaDestino = getContaByNumeroConta(numeroContaDestino);
 
 					if (contaDestino == null) {
-						System.out.println("Não conseguimos localizar a conta destino, com esse número " + numeroContaDestino);
+						System.out.println(
+								"Não conseguimos localizar a conta destino, com esse número " + numeroContaDestino);
 						break;
 					}
 
@@ -164,8 +166,8 @@ public class Atividade02 {
 		scanner.close();
 	}
 
-	public static ContaCorrente getContaByNumeroConta(int numeroConta) {
-		for (ContaCorrente conta : contasCorrentes) {
+	public static ContaEspecial getContaByNumeroConta(int numeroConta) {
+		for (ContaEspecial conta : contasCorrentes) {
 			if (conta.getNumeroConta() == numeroConta) {
 				return conta;
 			}
