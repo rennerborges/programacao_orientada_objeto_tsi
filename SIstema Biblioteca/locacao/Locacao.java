@@ -32,7 +32,8 @@ public class Locacao {
         this.pessoa = pessoa;
         this.dataLocacao = new Date();
         this.status = "ativa";
-
+        this.renovacoes = new ArrayList<Renovacao>();
+        this.multa = 0;
         this.publicacao.alterStatus();
     }
 
@@ -60,10 +61,10 @@ public class Locacao {
         if (this.status == "devolvido") {
             throw new Error("Essa publicação já foi devolvida");
         }
-
-        if (renovacoes.size() > limite) {
-            int renovacoesExtra = renovacoes.size() - limite;
+        if (renovacoes.size() >= limite) {
+            int renovacoesExtra = renovacoes.size() - (limite -1);
             this.multa = this.publicacao.getValorMulta() * renovacoesExtra;
+            System.out.println("Essa é a renovação " +  (renovacoes.size() +1) + ", seu limite era de " + limite + " a multa total da locação é de R$:" + this.multa);
         }
 
         Renovacao renovacao = new Renovacao(newDateDevolucao);
@@ -74,7 +75,7 @@ public class Locacao {
     }
 
     private void calculoMulta(int diasAtraso) {
-        this.multa = diasAtraso * 5;
+        this.multa += diasAtraso * 5;
     }
 
     public Publicacao getPublicacao() {

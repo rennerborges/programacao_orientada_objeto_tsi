@@ -47,8 +47,14 @@ public abstract class Pessoa {
         return true;
     }
 
-    public Boolean renovarLivro(Locacao locacao, Date dataDevolucao) {
-        return locacao.renovar(limiteRenovacao, dataDevolucao);
+    public Boolean renovarLivro(Publicacao publicacao, Date dataDevolucao) {
+        Locacao locacao = this.getLocacao(publicacao);
+
+        if(locacao == null) {
+            throw new Error("Publicação não encontrada para renovação");
+        }
+        
+        return locacao.renovar(this.limiteRenovacao, dataDevolucao);
     }
 
     public Boolean locarLivro(Publicacao publicacao, Biblioteca biblioteca, Date dataDevolucao) {

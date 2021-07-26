@@ -41,8 +41,15 @@ public class SistemaBiblioteca {
         // Esse verifica o máximo de locações simultaneas
         // renner.locarLivro(lobos, biblioteca, dataDomQuixote);
 
-        renner.devolverLivro(domQuixote);
-        renner.locarLivro(lobos, biblioteca, dataDomQuixote);
+        // renner.devolverLivro(domQuixote);
+        // renner.locarLivro(lobos, biblioteca, dataDomQuixote);
         System.out.println(renner.getTituloLocadas());
+
+        renner.renovarLivro(domQuixote, dataDomQuixote);
+        renner.renovarLivro(domQuixote, dataDomQuixote);
+        renner.renovarLivro(domQuixote, dataDomQuixote);
+        renner.renovarLivro(domQuixote, dataDomQuixote);
+        renner.renovarLivro(domQuixote, dataDomQuixote);
+        renner.renovarLivro(domQuixote, dataDomQuixote);
     }
 }
