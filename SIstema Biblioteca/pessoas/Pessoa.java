@@ -53,7 +53,7 @@ public abstract class Pessoa {
         if(locacao == null) {
             throw new Error("Publicação não encontrada para renovação");
         }
-        
+
         return locacao.renovar(this.limiteRenovacao, dataDevolucao);
     }
 
