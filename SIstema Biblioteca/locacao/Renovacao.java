@@ -1,16 +1,20 @@
 package locacao;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Renovacao {
-    private Date dataRenovacao;
-    private Date dataDevolucao;
+    private LocalDate dataRenovacao;
+    private LocalDate dataDevolucao;
 
-    public Renovacao(Date dataDevolucao) {
+    public Renovacao(LocalDate dataDevolucao) {
 
         // Validar se as datas são validas;
 
-        this.dataRenovacao = new Date();
+        this.dataRenovacao = LocalDate.now();
         this.dataDevolucao = dataDevolucao;
+    }
+
+    public LocalDate getDataDevolucao(){
+        return this.dataDevolucao;
     }
 }

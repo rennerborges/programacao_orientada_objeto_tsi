@@ -3,17 +3,17 @@ package publicacoes;
 import autor.Autor;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 
 public abstract class Publicacao {
-    private Date dataPublicacao;
+    private LocalDate dataPublicacao;
     private String titulo;
     private ArrayList<Publicacao> referencias;
     private ArrayList<Autor> autores;
     private Boolean disponivel;
     private double valorMulta;
 
-    public Publicacao(String titulo, ArrayList<Publicacao> referencias, ArrayList<Autor> autores, Date dataPublicacao,
+    public Publicacao(String titulo, ArrayList<Publicacao> referencias, ArrayList<Autor> autores, LocalDate dataPublicacao,
             double valorMulta) {
 
         // Verificar se existe valores no arraylists

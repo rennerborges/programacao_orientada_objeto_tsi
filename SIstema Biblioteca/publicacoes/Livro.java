@@ -1,7 +1,7 @@
 package publicacoes;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 
 import autor.Autor;
 
@@ -11,7 +11,7 @@ public class Livro extends Publicacao {
     private int ISBN;
 
     public Livro(String nomeEdicao, String nomeEditora, int ISBN, String titulo, ArrayList<Publicacao> referencias,
-            ArrayList<Autor> autores, Date dataPublicacao, double valorMulta) {
+            ArrayList<Autor> autores, LocalDate dataPublicacao, double valorMulta) {
         super(titulo, referencias, autores, dataPublicacao, valorMulta);
         this.nomeEdicao = nomeEdicao;
         this.nomeEditora = nomeEditora;

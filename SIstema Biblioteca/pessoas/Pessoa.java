@@ -4,7 +4,6 @@ import locacao.Locacao;
 import publicacoes.Publicacao;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import biblioteca.Biblioteca;
 
@@ -28,37 +27,35 @@ public abstract class Pessoa {
     }
 
     public Boolean devolverLivro(Publicacao Publicacao) {
+        // Encontrar a locacao que tem essa publicacao
         Locacao locacao = getLocacao(Publicacao);
 
+        // Verificar se esse usuário locou a publicacao
         if (locacao == null) {
             throw new Error("Publicação não encontrada para devolução");
         }
 
-        // Encontrar a locacao que tem essa publicacao
-
         if (!locacao.devolucao()) {
             return false;
         }
-
-        // Verificar se esse usuário locou a publicacao
 
         this.locacoes.remove(locacao);
 
         return true;
     }
 
-    public Boolean renovarLivro(Publicacao publicacao, Date dataDevolucao) {
+    public Boolean renovarLivro(Publicacao publicacao) {
         Locacao locacao = this.getLocacao(publicacao);
 
         if(locacao == null) {
             throw new Error("Publicação não encontrada para renovação");
         }
 
-        return locacao.renovar(this.limiteRenovacao, dataDevolucao);
+        return locacao.renovar(this.limiteRenovacao);
     }
 
-    public Boolean locarLivro(Publicacao publicacao, Biblioteca biblioteca, Date dataDevolucao) {
-        Locacao locacao = new Locacao(publicacao, biblioteca, dataDevolucao, this);
+    public Boolean locarLivro(Publicacao publicacao, Biblioteca biblioteca) {
+        Locacao locacao = new Locacao(publicacao, biblioteca, this);
         this.locacoes.add(locacao);
         this.historicoLocacoes.add(locacao);
         return true;

@@ -1,7 +1,7 @@
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import autor.Autor;
@@ -19,7 +19,7 @@ public class SistemaBiblioteca {
         autores.add(miguelCervantes);
 
         ArrayList<Publicacao> referenciasDomQuixote = new ArrayList<Publicacao>();
-        Date dataDomQuixote = new Date();
+        LocalDate dataDomQuixote = LocalDate.now();
 
         Livro domQuixote = new Livro("Livro do século", "Saraiva", 444545456, "Dom Quixote", referenciasDomQuixote,
                 autores, dataDomQuixote, 10);
@@ -35,9 +35,9 @@ public class SistemaBiblioteca {
 
         Biblioteca biblioteca = new Biblioteca("Alexandria", "Morrinhos", "Goías", "Brasil", "Rua x");
 
-        renner.locarLivro(domQuixote, biblioteca, dataDomQuixote);
-        renner.locarLivro(pequenoPrincipe, biblioteca, dataDomQuixote);
-        renner.locarLivro(lady, biblioteca, dataDomQuixote);
+        renner.locarLivro(domQuixote, biblioteca);
+        renner.locarLivro(pequenoPrincipe, biblioteca);
+        renner.locarLivro(lady, biblioteca);
         // Esse verifica o máximo de locações simultaneas
         // renner.locarLivro(lobos, biblioteca, dataDomQuixote);
 
@@ -45,11 +45,14 @@ public class SistemaBiblioteca {
         // renner.locarLivro(lobos, biblioteca, dataDomQuixote);
         System.out.println(renner.getTituloLocadas());
 
-        renner.renovarLivro(domQuixote, dataDomQuixote);
-        renner.renovarLivro(domQuixote, dataDomQuixote);
-        renner.renovarLivro(domQuixote, dataDomQuixote);
-        renner.renovarLivro(domQuixote, dataDomQuixote);
-        renner.renovarLivro(domQuixote, dataDomQuixote);
-        renner.renovarLivro(domQuixote, dataDomQuixote);
+        renner.renovarLivro(domQuixote);
+        renner.renovarLivro(domQuixote);
+        renner.renovarLivro(domQuixote);
+        renner.renovarLivro(domQuixote);
+        renner.renovarLivro(domQuixote);
+        renner.renovarLivro(domQuixote);
+
+        renner.devolverLivro(domQuixote);
+        // renner.devolverLivro(domQuixote);
     }
 }
