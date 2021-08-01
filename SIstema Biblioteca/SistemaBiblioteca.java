@@ -22,7 +22,7 @@ public class SistemaBiblioteca {
         LocalDate dataDomQuixote = LocalDate.now();
 
         Livro domQuixote = new Livro("Livro do século", "Saraiva", 444545456, "Dom Quixote", referenciasDomQuixote,
-                autores, dataDomQuixote, 10);
+                autores, dataDomQuixote, 20);
 
         Livro pequenoPrincipe = new Livro("Livro do século", "Saraiva", 545487, "PequenoPrincipe",
                 referenciasDomQuixote, autores, dataDomQuixote, 5);
@@ -36,13 +36,15 @@ public class SistemaBiblioteca {
         Biblioteca biblioteca = new Biblioteca("Alexandria", "Morrinhos", "Goías", "Brasil", "Rua x");
 
         renner.locarLivro(domQuixote, biblioteca);
+        // Verificar se é possivel fazer duas locações para o mesmo livro
+        // marcel.locarLivro(domQuixote, biblioteca);
         renner.locarLivro(pequenoPrincipe, biblioteca);
         renner.locarLivro(lady, biblioteca);
         // Esse verifica o máximo de locações simultaneas
-        // renner.locarLivro(lobos, biblioteca, dataDomQuixote);
+        // renner.locarLivro(lobos, biblioteca);
 
         // renner.devolverLivro(domQuixote);
-        // renner.locarLivro(lobos, biblioteca, dataDomQuixote);
+        // renner.locarLivro(lobos, biblioteca);
         System.out.println(renner.getTituloLocadas());
 
         renner.renovarLivro(domQuixote);
