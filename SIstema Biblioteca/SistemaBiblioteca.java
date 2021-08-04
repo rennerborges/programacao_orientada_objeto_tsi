@@ -18,22 +18,20 @@ public class SistemaBiblioteca {
         Autor miguelCervantes = new Autor("Miguel de Cervantes", "Doutor");
         autores.add(miguelCervantes);
 
-        ArrayList<Publicacao> referenciasDomQuixote = new ArrayList<Publicacao>();
         LocalDate dataDomQuixote = LocalDate.now();
 
-        Livro domQuixote = new Livro("Livro do século", "Saraiva", 444545456, "Dom Quixote", referenciasDomQuixote,
-                autores, dataDomQuixote, 20);
+        Livro domQuixote = new Livro("Livro do século", "Saraiva", 444545456, "Dom Quixote", dataDomQuixote, 20);
 
-        Livro pequenoPrincipe = new Livro("Livro do século", "Saraiva", 545487, "PequenoPrincipe",
-                referenciasDomQuixote, autores, dataDomQuixote, 5);
+        Livro pequenoPrincipe = new Livro("Livro do século", "Saraiva", 545487, "PequenoPrincipe", dataDomQuixote, 5);
 
-        Livro lady = new Livro("Livro do século", "Saraiva", 7867863, "lady", referenciasDomQuixote, autores,
-                dataDomQuixote, 5);
+        Livro lady = new Livro("Livro do século", "Saraiva", 7867863, "lady", dataDomQuixote, 5);
 
-        Livro lobos = new Livro("Livro do século", "Saraiva", 2342343, "lobos", referenciasDomQuixote, autores,
-                dataDomQuixote, 5);
+        Livro lobos = new Livro("Livro do século", "Saraiva", 2342343, "lobos", dataDomQuixote, 5);
 
         Biblioteca biblioteca = new Biblioteca("Alexandria", "Morrinhos", "Goías", "Brasil", "Rua x");
+
+        biblioteca.addPublicacao(domQuixote);
+        biblioteca.removePublicacao(domQuixote);
 
         renner.locarLivro(domQuixote, biblioteca);
         // Verificar se é possivel fazer duas locações para o mesmo livro

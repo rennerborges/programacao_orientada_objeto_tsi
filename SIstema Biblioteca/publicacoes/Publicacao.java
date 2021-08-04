@@ -13,18 +13,46 @@ public abstract class Publicacao {
     private Boolean disponivel;
     private double valorMulta;
 
-    public Publicacao(String titulo, ArrayList<Publicacao> referencias, ArrayList<Autor> autores, LocalDate dataPublicacao,
-            double valorMulta) {
-
-        // Verificar se existe valores no arraylists
-        // Verificar se existe o livro na biblioteca;
+    public Publicacao(String titulo, LocalDate dataPublicacao, double valorMulta) {
 
         this.titulo = titulo;
-        this.referencias = referencias;
-        this.autores = autores;
         this.dataPublicacao = dataPublicacao;
         this.valorMulta = valorMulta;
         this.disponivel = true;
+        this.autores = new ArrayList<Autor>();
+        this.referencias = new ArrayList<Publicacao>();
+    }
+
+    public void addReferencia(Publicacao publicacao){
+        this.referencias.add(publicacao);
+    }
+
+    public void removePublicacao(Publicacao publicacao){
+        for (int i = 0; i < this.referencias.size(); i++) {
+            if (this.referencias.get(i).equals(publicacao)) {
+                this.referencias.remove(i);
+            }
+        }
+    }
+
+    public ArrayList<Publicacao> getPublicoes(){
+        return this.referencias;
+    }
+
+    public void addAutor(Autor autor){
+        this.autores.add(autor);
+    }
+
+    public void removeAutor(Autor autor){
+        for (int i = 0; i < this.autores.size(); i++) {
+            if (this.autores.get(i).equals(autor)) {
+                this.autores.remove(i);
+            }
+        }
+    }
+
+    public ArrayList<Autor> getAutores(){
+        return this.autores;
     }
 
     public void alterStatus() {
