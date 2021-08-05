@@ -25,6 +25,12 @@ public class Locacao {
             throw new Error("Essa publicação já está locada");
         }
 
+        if (pessoa.getLimiteLocacoes() > 0 && pessoa.getLocacoes().size() > pessoa.getLimiteLocacoes() - 1) {
+            throw new Error("Você já locou o máximo de livros, devolva-os antes de locar o próximo");
+        }
+
+        pessoa.addLocacao(this);
+
         this.publicacao = publicacao;
         this.biblioteca = biblioteca;
         this.dataPrevistaDevolucao = LocalDate.now().plus(Period.ofDays(10));
@@ -36,7 +42,7 @@ public class Locacao {
         this.publicacao.alterStatus();
     }
 
-    public Boolean devolucao() {
+    public void devolucao() {
 
         if (this.status == "devolvido") {
             throw new Error("Essa publicação já foi devolvida");
@@ -51,8 +57,6 @@ public class Locacao {
             dataDevolucao = this.dataPrevistaDevolucao;
         }
 
-        // Verificar se foi entregue na data correta;
-        // Caso não, chamar o metodo calculoMulta;
         Period period = Period.between(LocalDate.now(), dataDevolucao);
         int diferenca = Math.abs(period.getDays());
 
@@ -68,10 +72,10 @@ public class Locacao {
         this.publicacao.alterStatus();
 
         System.out.println("Devolução feita com sucesso!");
-        return true;
+        this.pessoa.removeLocacao(this);
     }
 
-    public Boolean renovar(int limite) {
+    public Boolean renovar() {
 
         if (this.status == "devolvido") {
             throw new Error("Essa publicação já foi devolvida");
@@ -79,14 +83,14 @@ public class Locacao {
 
         LocalDate novaDataDevolucao = LocalDate.now().plus(Period.ofDays(10));
 
-        if (renovacoes.size() >= limite) {
-            int renovacoesExtra = renovacoes.size() - (limite -1);
+        if (this.renovacoes.size() >= this.pessoa.getLimiteRenovacoes()) {
+            int renovacoesExtra = this.renovacoes.size() - (this.pessoa.getLimiteRenovacoes() -1);
             this.multa = this.publicacao.getValorMulta() * renovacoesExtra;
-            System.out.println("Essa é a renovação " +  (renovacoes.size() +1) + ", seu limite era de " + limite + " a multa total da locação é de R$:" + this.multa);
+            System.out.println("Essa é a renovação " +  (renovacoes.size() +1) + ", seu limite era de " + this.pessoa.getLimiteRenovacoes() + " a multa total da locação é de R$:" + this.multa);
         }
 
         Renovacao renovacao = new Renovacao(novaDataDevolucao);
-        renovacoes.add(renovacao);
+        this.renovacoes.add(renovacao);
 
         return true;
     }

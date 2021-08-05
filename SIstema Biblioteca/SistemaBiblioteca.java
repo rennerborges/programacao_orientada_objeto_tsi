@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import autor.Autor;
 import biblioteca.Biblioteca;
+import locacao.Locacao;
 import pessoas.*;
 import publicacoes.*;
 
@@ -31,28 +32,31 @@ public class SistemaBiblioteca {
         Biblioteca biblioteca = new Biblioteca("Alexandria", "Morrinhos", "Goías", "Brasil", "Rua x");
 
         biblioteca.addPublicacao(domQuixote);
-        biblioteca.removePublicacao(domQuixote);
+        // biblioteca.removePublicacao(domQuixote);
 
-        renner.locarLivro(domQuixote, biblioteca);
-        // Verificar se é possivel fazer duas locações para o mesmo livro
-        // marcel.locarLivro(domQuixote, biblioteca);
-        renner.locarLivro(pequenoPrincipe, biblioteca);
-        renner.locarLivro(lady, biblioteca);
-        // Esse verifica o máximo de locações simultaneas
-        // renner.locarLivro(lobos, biblioteca);
+        Locacao renner1 = new Locacao(domQuixote, biblioteca, renner);
+        Locacao renner2 = new Locacao(pequenoPrincipe, biblioteca, renner);
+        Locacao renner3 = new Locacao(lady, biblioteca, renner);
+        // Locacao renner4 = new Locacao(lobos, biblioteca, renner);
 
-        // renner.devolverLivro(domQuixote);
-        // renner.locarLivro(lobos, biblioteca);
-        System.out.println(renner.getTituloLocadas());
+        renner1.renovar();
+        renner1.renovar();
+        renner1.renovar();
+        renner1.renovar();
 
-        renner.renovarLivro(domQuixote);
-        renner.renovarLivro(domQuixote);
-        renner.renovarLivro(domQuixote);
-        renner.renovarLivro(domQuixote);
-        renner.renovarLivro(domQuixote);
-        renner.renovarLivro(domQuixote);
+        renner2.devolucao();
+        renner3.devolucao();
+        
 
-        renner.devolverLivro(domQuixote);
-        // renner.devolverLivro(domQuixote);
+        // Locacao marcel1 = new Locacao(domQuixote, biblioteca, marcel);
+        Locacao marcel2 = new Locacao(pequenoPrincipe, biblioteca, marcel);
+        Locacao marcel3 = new Locacao(lady, biblioteca, marcel);
+        Locacao marcel4 = new Locacao(lobos, biblioteca, marcel);
+
+        System.out.println("Renner" + renner.getTituloLocadas());
+        System.out.println("Marcel" + marcel.getTituloLocadas());
+
+
+
     }
 }
