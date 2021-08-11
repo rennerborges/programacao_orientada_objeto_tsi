@@ -24,7 +24,7 @@ public class Biblioteca {
     public void addPublicacao(Publicacao publicacao) {
 
         if(this.getPublicacao(publicacao) != null){
-            throw new Error("Publicação já existente nessa biblioteca");
+            throw new IllegalArgumentException("Publicação já existente nessa biblioteca");
         }
 
         publicacoes.add(publicacao);

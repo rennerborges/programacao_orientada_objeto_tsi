@@ -22,18 +22,18 @@ public class Locacao {
     public Locacao(Publicacao publicacao, Biblioteca biblioteca, Pessoa pessoa) {
 
         if (!publicacao.getDisponivel()) {
-            throw new Error("Essa publicação já está locada");
+            throw new IllegalArgumentException("Essa publicação já está locada");
         }
 
         if (pessoa.getLimiteLocacoes() > 0 && pessoa.getLocacoes().size() > pessoa.getLimiteLocacoes() - 1) {
-            throw new Error("Você já locou o máximo de livros, devolva-os antes de locar o próximo");
+            throw new IllegalArgumentException("Você já locou o máximo de livros, devolva-os antes de locar o próximo");
         }
 
         pessoa.addLocacao(this);
 
         this.publicacao = publicacao;
         this.biblioteca = biblioteca;
-        this.dataPrevistaDevolucao = LocalDate.now().plus(Period.ofDays(10));
+        this.dataPrevistaDevolucao = LocalDate.now().plus(Period.ofDays(7));
         this.pessoa = pessoa;
         this.dataLocacao = LocalDate.now();
         this.status = "ativa";
@@ -45,7 +45,7 @@ public class Locacao {
     public void devolucao() {
 
         if (this.status == "devolvido") {
-            throw new Error("Essa publicação já foi devolvida");
+            throw new IllegalArgumentException("Essa publicação já foi devolvida");
         }
 
         LocalDate dataDevolucao;
@@ -78,15 +78,34 @@ public class Locacao {
     public Boolean renovar() {
 
         if (this.status == "devolvido") {
-            throw new Error("Essa publicação já foi devolvida");
+            throw new IllegalArgumentException("Essa publicação já foi devolvida");
         }
 
-        LocalDate novaDataDevolucao = LocalDate.now().plus(Period.ofDays(10));
+        LocalDate novaDataDevolucao;
+        Period period;
+
+
+        if(this.renovacoes.size() == 0){
+            novaDataDevolucao = this.dataPrevistaDevolucao.plus(Period.ofDays(7));
+            period = Period.between(LocalDate.now(), this.dataPrevistaDevolucao);
+        }else{
+            int indexLastRenovacao = this.renovacoes.size() -1;
+            LocalDate dateLastRenovacao = this.renovacoes.get(indexLastRenovacao).getDataDevolucao();
+            period = Period.between(LocalDate.now(), dateLastRenovacao);
+            novaDataDevolucao = dateLastRenovacao.plus(Period.ofDays(7));
+        }
+        int diferenca = Math.abs(period.getDays());
+
+        if(diferenca < 0){
+            throw new IllegalArgumentException("Não foi possível renovar, pois o empréstimo está com a data de devolução vencida.");
+        }
+
 
         if (this.renovacoes.size() >= this.pessoa.getLimiteRenovacoes()) {
-            int renovacoesExtra = this.renovacoes.size() - (this.pessoa.getLimiteRenovacoes() -1);
-            this.multa = this.publicacao.getValorMulta() * renovacoesExtra;
-            System.out.println("Essa é a renovação " +  (renovacoes.size() +1) + ", seu limite era de " + this.pessoa.getLimiteRenovacoes() + " a multa total da locação é de R$:" + this.multa);
+            // int renovacoesExtra = this.renovacoes.size() - (this.pessoa.getLimiteRenovacoes() -1);
+            // this.multa = this.publicacao.getValorMulta() * renovacoesExtra;
+            // System.out.println("Essa é a renovação " +  (renovacoes.size() +1) + ", seu limite era de " + this.pessoa.getLimiteRenovacoes() + " a multa total da locação é de R$:" + this.multa);
+            throw new IllegalArgumentException("Já foi atingido o número máximo de renovações.");
         }
 
         Renovacao renovacao = new Renovacao(novaDataDevolucao);

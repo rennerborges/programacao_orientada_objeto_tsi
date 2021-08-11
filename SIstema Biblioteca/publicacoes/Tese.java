@@ -26,7 +26,7 @@ public class Tese extends Publicacao {
         if(super.getAutores().size() == 0){
             super.addAutor(autor);
         }else{
-            throw new Error("A tese só pode ter um autor");
+            throw new IllegalArgumentException("A tese só pode ter um autor");
         }
     }
 

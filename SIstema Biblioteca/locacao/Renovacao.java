@@ -8,8 +8,6 @@ public class Renovacao {
 
     public Renovacao(LocalDate dataDevolucao) {
 
-        // Validar se as datas são validas;
-
         this.dataRenovacao = LocalDate.now();
         this.dataDevolucao = dataDevolucao;
     }
